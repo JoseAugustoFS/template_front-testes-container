@@ -1,0 +1,47 @@
+### Variáveis
+@baseUrl = http://localhost:3000/api
+@contentType = application/json
+
+
+### TESTE Fernando
+GET http://localhost:3000/api//lancamentoNota
+
+####
+
+### Listar todas as notas
+GET {{baseUrl}}/lancamentoNota
+Content-Type: {{contentType}}
+
+### Buscar nota por ID
+GET {{baseUrl}}/lancamentoNota/1
+Content-Type: {{contentType}}
+
+### Criar nova nota
+POST {{baseUrl}}/lancamentoNota
+Content-Type: {{contentType}}
+
+{
+    "matricula": "1234567",
+    "nota": 8.5
+}
+
+### Atualizar nota
+PUT {{baseUrl}}/lancamentoNota/1
+Content-Type: {{contentType}}
+
+{
+    "matricula": "1234567",
+    "nota": 9.0
+}
+
+### Deletar nota
+DELETE {{baseUrl}}/lancamentoNota/1
+Content-Type: {{contentType}}
+
+### Teste de método não permitido
+PATCH {{baseUrl}}/lancamentoNota/1
+Content-Type: {{contentType}}
+
+{
+    "nota": 7.5
+}
