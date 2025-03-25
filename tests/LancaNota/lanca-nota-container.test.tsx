@@ -153,4 +153,70 @@ describe("LancaNotaContainer", () => {
             expect(mockAlerta.alertaUsuario).toHaveBeenCalledWith("Problema ao buscar dados: Erro simulado")
         );
     });
+
+    test('deve exibir mensagem de erro ao buscar dados', async () => {
+        mockServicoLancaNota.obterTodas.mockRejectedValue(new Error('Erro ao buscar dados'));
+        
+        render(
+            <LancaNotaContainer
+                servicoLancaNota={mockServicoLancaNota}
+                alerta={mockAlerta}
+                LancaNotaView={MockLancaNotaView}
+                LancaNotaList={MockLancaNotaList}
+            />
+        );
+        
+        await waitFor(() => {
+            expect(screen.getByText('Erro: Erro ao buscar dados')).toBeInTheDocument();
+        });
+    });
+
+    test('deve salvar a nota com sucesso ao preencher campos corretamente e clicar em salvar', async () => {
+        mockServicoLancaNota.salvaNotaAluno.mockResolvedValue(true);
+        
+        render(
+            <LancaNotaContainer
+                servicoLancaNota={mockServicoLancaNota}
+                alerta={mockAlerta}
+                LancaNotaView={MockLancaNotaView}
+                LancaNotaList={MockLancaNotaList}
+            />
+        );
+    
+        fireEvent.change(screen.getByTestId('input-matricula'), { target: { value: '2024002' } });
+        fireEvent.change(screen.getByTestId('input-nota'), { target: { value: '8' } });
+    
+        fireEvent.click(screen.getByTestId('submit-button'));
+        
+        await waitFor(() => {
+            expect(screen.queryByText('Carregando...')).not.toBeInTheDocument();
+        });
+        
+        expect(mockServicoLancaNota.obterTodas).toHaveBeenCalled();
+    });
+    
+    test('deve exibir mensagem de erro ao submeter uma nota com campo vazio', async () => {
+        mockServicoLancaNota.salvaNotaAluno.mockResolvedValue(false);
+        
+        render(
+            <LancaNotaContainer
+                servicoLancaNota={mockServicoLancaNota}
+                alerta={mockAlerta}
+                LancaNotaView={MockLancaNotaView}
+                LancaNotaList={MockLancaNotaList}
+            />
+        );
+    
+        fireEvent.change(screen.getByTestId('input-matricula'), { target: { value: '' } });
+        fireEvent.change(screen.getByTestId('input-nota'), { target: { value: '8' } });
+    
+        fireEvent.click(screen.getByTestId('submit-button'));
+        
+        await waitFor(() => {
+            expect(screen.getByText('Erro: Erro ao salvar nota')).toBeInTheDocument();
+        });
+    });
+    
+    
+    
 });

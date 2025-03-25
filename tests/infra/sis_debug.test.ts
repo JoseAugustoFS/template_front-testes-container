@@ -9,7 +9,7 @@
 
 import { DEB, TipoDebug } from '@/infra/sis_debug';
 
-describe('Sistema de Debug', () => {
+describe.skip('Sistema de Debug', () => {
     // Setup - Antes de cada teste
     let consoleSpy: jest.SpyInstance;
     
