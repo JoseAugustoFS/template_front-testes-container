@@ -19,6 +19,11 @@ export function DEB(
     mensagem: string,
     ...params: any[]
 ): void {
+
+    if (process.env.NODE_ENV === 'test') {
+        return; // Não faz nada se for ambiente de teste
+    }
+
     const timestamp = new Date().toISOString();
     const prefix = `[${timestamp}][${modulo}][${tipo}]`;
     
