@@ -79,7 +79,7 @@ class MockApiComErro implements IApi<NotaAluno> {
 }
 
 // Testes para obterTodas
-describe.skip('LancaNotaService - Testes do método obterTodas', () => {
+describe('LancaNotaService - Testes do método obterTodas', () => {
     // Teste do caso de sucesso
     test('deve retornar um array de NotaAluno quando a requisição for bem sucedida', async () => {
         // Arrange
@@ -113,7 +113,7 @@ describe.skip('LancaNotaService - Testes do método obterTodas', () => {
 });
 
 // Testes para salvaNotaAluno
-describe.skip('LancaNotaService - Testes do método salvaNotaAluno', () => {
+describe('LancaNotaService - Testes do método salvaNotaAluno', () => {
     // Teste do caso de sucesso
     test('deve retornar true quando salvar uma nota válida', async () => {
         // Arrange
